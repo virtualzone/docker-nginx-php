@@ -17,6 +17,7 @@ RUN sed -i -e "s/;catch_workers_output\s*=\s*yes/catch_workers_output = yes/g" /
 RUN rm /etc/nginx/conf.d/*
 RUN rm -f /etc/nginx/sites-{enabled,available}
 ADD nginx.conf /etc/nginx/
+ADD custom.conf /etc/nginx/
 
 ADD supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
