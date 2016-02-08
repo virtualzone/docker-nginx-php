@@ -6,7 +6,8 @@ RUN apt-get update && apt-get install -y \
     php5-cli \
     php5-mysql \
     php-apc \
-    supervisor
+    supervisor \
+    wget
 
 RUN sed -i -e "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/g" /etc/php5/fpm/php.ini
 RUN sed -i -e "s/upload_max_filesize\s*=\s*2M/upload_max_filesize = 100M/g" /etc/php5/fpm/php.ini
@@ -23,9 +24,14 @@ ADD supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 ADD index.php /usr/share/nginx/html/
 
+RUN cd /bin && \
+    wget https://github.com/ohjames/smell-baron/releases/download/v0.3.0/smell-baron && \
+    chmod a+x smell-baron
+
 EXPOSE 80
 
 RUN apt-get clean
 RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
+ENTRYPOINT ["/bin/smell-baron"]
 CMD ["/usr/bin/supervisord"]
