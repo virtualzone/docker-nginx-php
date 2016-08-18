@@ -25,7 +25,7 @@ ADD supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 ADD index.php /usr/share/nginx/html/
 
 RUN cd /bin && \
-    wget https://github.com/ohjames/smell-baron/releases/download/v0.3.0/smell-baron && \
+    wget https://github.com/ohjames/smell-baron/releases/download/v0.4.1/smell-baron && \
     chmod a+x smell-baron
 
 EXPOSE 80
